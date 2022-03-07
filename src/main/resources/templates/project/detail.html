@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragment.html :: head(title='Project Detail Page',path='/css/index.css')"></head>
+<body>
+<!--<header>-->
+<!--    <section th:include="fragment.html :: navbar"></section>-->
+<!--</header>-->
+<main>
+
+    <h1>Project Detail Page</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-8 mx-auto">
+                <ol>
+                    <li th:text="'Name : '+${project.name}"></li>
+                    <li>
+                        <p>Tz : </p>
+                        <img th:src="@{${project.tzPath}}" class="img-thumbnail" alt="logo" th:width="400px"/>
+                    </li>
+                    <li th:text="'Closed : '+${project.closed}"></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</main>
+<footer>
+    <section th:include="fragment.html :: js-files"></section>
+</footer>
+</body>
+</html>

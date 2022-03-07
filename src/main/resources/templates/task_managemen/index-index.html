@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragment-index.html :: head(title='Task managment', path='/css/index.css')"></head>
+<body>
+<header>
+    <main th:include="fragment-index.html :: main"></main>
+
+    <aside>
+        <nav th:include="fragment-index.html :: navigation"></nav>
+
+        <div class="container">
+            <h3 th:text="${session?.organization?.name}"></h3>
+
+            <div class="content">
+                <div class="contents">
+                    <div class="content-text">
+                        <p>Projects</p>
+                        <p>Add project</p>
+                    </div>
+                    <!--<div class="box" th:each="project : ${projects}" >
+                        <a th:href="@{/project/detail/{id}/(id=${project.id})}">
+                        <div class="box-text">
+                            <span th:text="${project.name}"></span>
+                            <span th:text="${project.closed}">
+                                &lt;!&ndash;<img src="../../static/imges/sunrise.png" alt="">12/04/2021&ndash;&gt;
+                            </span>
+                            <span>
+                            <img th:src="@{${project.tzPath}}" class="img-thumbnail" alt="logo" th:width="50px"/>
+                                &lt;!&ndash;<img src="../../static/imges/sunset2.png" alt=""> 12/04/2021&ndash;&gt;
+                            </span>
+                            <span>
+                                <img src="../../static/imges/users.png" alt=""> Adyl, Azhar, Arthur
+                            </span>
+                        </div>
+                        </a>
+                    </div>-->
+                    <table class="table">
+                        <thead class="thead-light">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Tz</th>
+                            <th scope="col">Closed</th>
+                            <th scope="col">Active</th>
+                            <th scope="col">Enter</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="project,iter :  ${projects}">
+                            <th th:text="${iter.count}"></th>
+                            <th><a th:href="@{/column/internal/{id}/(id=${project.id})}" th:text="${project.name}" ></a></th>
+                            <th>
+                                <img th:src="@{${project.tzPath}}" class="img-thumbnail" alt="logo"
+                                     th:width="100px"/>
+                            </th>
+                            <th th:text="${project.closed}"></th>
+                            <th class="icons">
+                                <a th:href="@{/project/detail/{id}/(id=${project.id})}">👁</a>
+                                <a th:href="@{/project/update/{id}/(id=${project.id})}">🔄</a>
+                                <a href="#">🔓</a>
+                                <a th:href="@{/project/delete/{id}/(id=${project.id})}">🗑</a>
+                            </th>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="content-box">
+                    <div class="content-text">
+                        <p>Tasks</p>
+                    </div>
+                    <div class="box" th:each="task : ${tasks}">
+
+                        <div class="box-text">
+                            <p th:text="${task.name}"></p>
+                            <span>
+                                <p th:text="${task.deadline}"></p>
+                                <!--<img src="../../static/imges/sunrise.png" alt="">12/04/2021-->
+                            </span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+</header>
+
+<script>
+    const menu = document.querySelector(".menu-bar")
+    const main = document.querySelector("main")
+    menu.addEventListener("click", () => {
+        main.classList.toggle("open")
+    })
+</script>
+</body>
+</html>

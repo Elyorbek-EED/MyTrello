@@ -1,0 +1,17 @@
+
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/citizens?currentSchema=etm
+    username: citizen
+    password: 1111
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+  banner:
+    image:
+      location: classpath:banner.txt
+server:
+  port: 9090

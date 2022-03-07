@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project internal</title>
+    <link rel="stylesheet" href="/css/index2.css">
+    <!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;600;700&family=Red+Hat+Display&family=Rubik:wght@400;500;600;700&display=swap"
+          rel="stylesheet">
+</head>
+<body>
+<header>
+    <main>
+        <div class="menu-bar">
+            <i class="fas fa-bars"></i>
+        </div>
+        <div class="logo">
+            <img src="../../static/imges/logo.png" alt="">
+        </div>
+
+        <div class="link">
+            <a href="#"> -- Clients
+            </a>
+            <a href="#">Task manager</a>
+            <a href="#">Inbox</a>
+            <a href="#">Contacts</a>
+        </div>
+    </main>
+
+    <aside>
+        <nav>
+            <div class="input">
+                <div>
+                    <i class="fas fa-search"></i>
+                </div>
+
+                <input type="text" placeholder="Search">
+            </div>
+
+            <div class="user-information">
+                <div class="user">
+                    <img th:src="@{${session_user.profileImage}}" style="width: 50px;" alt="logo"/>
+                    <p th:text="${session_user.username}">
+                        <i class="fas fa-angle-down"></i>
+                    </p>
+                </div>
+
+                <div class="icon">
+                    <a th:href="@{/auth/logout}" class="btn btn-outline-danger">logout</a>
+                </div>
+            </div>
+
+        </nav>
+
+        <div class="container">
+            <h3 th:text="'Project : '+${project.name}"></h3>
+            <div class="contents" style="height:500px; overflow-x: scroll;">
+                <!--<div class="content">
+                    <div class="box">
+                        <p><b>Date added:</b> <span> 12/04/2021</span></p>
+                        <p><b>Deadline:</b><span>12/04/2021 </span></p>
+                        <p><b>Participants:</b><span>12/04/2021 </span></p>
+                    </div>
+                    <div class="content-box">
+                        <p>Менеджер для внутреннего пользования, предназначенный для учета статистики и трекинга задач.
+                        </p>
+                    </div>
+                    <div class="boxs">
+                        <p><b>All tasks:</b> 1</p>
+                        <p><b>Done:</b> 1</p>
+                        <p><b>Frozen:</b> 1</p>
+                    </div>
+                </div>-->
+                <!--                <table>-->
+                <!--                    <tr th:each="column,iter :  ${columns}">-->
+                <!--                        <th th:text="${iter.count}"></th>-->
+                <!--                        <th th:text="${column.name}"></th>-->
+                <!--                    </tr>-->
+                <!--                </table>-->
+                <div class="todoContainer">
+                    <div class="todoContent-box" th:each="column,iter :  ${columns}"
+                         style="height:500px; overflow-x: scroll;">
+                        <div class="todo-img">
+                            <a th:href="@{/column/detail/{id}/(id=${column.id})}"
+                               th:text="'Column : '+${column.name}"></a>
+                            <img th:src="@{${column.icon}}" class="img-thumbnail" alt="icon"
+                                 th:width="70px"/>
+                            <a th:href="@{/task/create/{projectId}/{id}/(projectId=${project.id},id=${column.id})}">
+                                <img src="/imges/plus-circle.png" alt="">
+                            </a>
+                        </div>
+                        <div class="todo-box" th:each="task,iter :  ${tasks}"
+                             th:if="${task.columnId.id==column.id}">
+                            <a th:href="@{/task/internal/{id}/(id=${task.id})}" style="text-decoration: none">
+                                <h4 th:text="'Task : '+${task.name}" style="display: inline"></h4>
+                                <h4 style="display: inline"><button class="medium">Medium</button></h4>
+                            </a>
+                            <h4 style="margin-bottom: 0">Description : </h4>
+                            <p th:text="${task.description}"></p>
+                        </div>
+                    </div>
+                    <div class="todoContainer">
+                        <div class="todo-img">
+                            <a th:href="@{/column/create/{id}/(id=${project.id})}">
+                                <button class="btn btn-success p-2">➕Add Column</button>
+                            </a>
+                        </div>
+                    </div>
+                    <!--<div class="todo-box">
+                            <h4>CRM system design
+                                <button class="low">Low</button>
+                            </h4>
+                            <p><span>Participant:  </span>Azhar</p>
+                            <p><span>Participant:  </span>Azhar</p>
+                        </div>
+
+                        <div class="todo-box">
+                            <h4>CRM system design
+                                <button class="high">High</button>
+                            </h4>
+                            <p><span>Participant:  </span>Azhar</p>
+                            <p><span>Participant:  </span>Azhar</p>
+                        </div>-->
+                    <!--                    <div class="todoContent-box">-->
+                    <!--                        <div class="todo-img">-->
+                    <!--                            <p>To do</p>-->
+                    <!--                        </div>-->
+                    <!--                        <div class="todo-box">-->
+                    <!--                            <h4>CRM system design-->
+                    <!--                                <button class="low">Low</button>-->
+                    <!--                            </h4>-->
+                    <!--                            <p><span>Participant:  </span>Azhar</p>-->
+                    <!--                            <p><span>Participant:  </span>Azhar</p>-->
+                    <!--                        </div>-->
+                    <!--                        <div class="todo-box">-->
+                    <!--                            <h4>CRM system design-->
+                    <!--                                <button class="low">Low</button>-->
+                    <!--                            </h4>-->
+                    <!--                            <p><span>Participant:  </span>Azhar</p>-->
+                    <!--                            <p><span>Participant:  </span>Azhar</p>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+                    <!--                    <div class="todoContent-box">-->
+                    <!--                        <div class="todo-img">-->
+                    <!--                            <p>To do</p>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+                    <!--                    <div class="todoContent-box">-->
+                    <!--                        <div class="todo-img">-->
+                    <!--                            <p>To do</p>-->
+                    <!--                        </div>-->
+                    <!--                        <div class="todo-box">-->
+                    <!--                            <h4>CRM system design-->
+                    <!--                                <button class="low">Low</button>-->
+                    <!--                            </h4>-->
+                    <!--                            <p><span>Participant:  </span>Azhar</p>-->
+                    <!--                            <p><span>Participant:  </span>Azhar</p>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+                </div>
+            </div>
+        </div>
+    </aside>
+
+</header>
+
+<script>
+    const menu = document.querySelector(".menu-bar")
+    const main = document.querySelector("main")
+    menu.addEventListener("click", () => {
+        main.classList.toggle("open")
+    })
+</script>
+</body>
+</html>

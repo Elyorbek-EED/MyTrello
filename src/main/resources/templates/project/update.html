@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragment.html :: head(title='Project update Page',path='/css/index.css')">
+</head>
+<body>
+<!--<header>-->
+<!--    <section th:include="fragment.html :: navbar"></section>-->
+<!--</header>-->
+<main>
+    <div class="container">
+        <div class="row">
+            <div class="col-10 mx-auto">
+                <form th:method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="name">Name</label><span th:text="' ('+${project.name}+')'"></span>
+                        <input type="text" class="form-control" id="name" name="name"/>
+                    </div>
+
+
+                    <p>Old tz : <span/><br/>
+
+                    <li>
+                        <a th:href="${project.tzPath}">
+                            <img width="250px" height="250px" th:src="${project.tzPath}"/>
+                            <a/>
+                    </li>
+
+
+                    <div class="form-group">
+                        <label for="tzFile">New Tz</label>
+                        <input type="file" class="form-control" id="tzFile" name="tzFile"/>
+                    </div>
+
+                    <div th:if="${project.closed}">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" name="closed" checked="checked" id="closed">
+                            <label class="form-check-label" for="closed">Completed</label>
+                        </div>
+                    </div>
+
+                    <div th:unless="${project.closed}">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" name="closed" id="closed1">
+                            <label class="form-check-label" for="closed1">Completed</label>
+                        </div>
+                    </div>
+
+
+                        <button type="submit" class="btn btn-primary">➕ Save</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</main>
+<footer>
+    <section th:include="fragment.html :: js-files"></section>
+</footer>
+</body>
+</html>
